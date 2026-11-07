@@ -1,0 +1,33 @@
+{% load static %}
+<header class="site-header" data-bs-theme="dark">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand logo" href="{% url 'questions:index' %}"><span class="logo-mark">&lt;/&gt;</span>Dev<span class="logo-accent">Help</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+              aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse gap-3" id="mainNav">
+        <form class="d-flex flex-grow-1 my-2 my-lg-0 search-form" role="search" action="{% url 'questions:index' %}" method="get">
+          <input class="form-control" type="search" name="q" placeholder="Search" aria-label="Search" maxlength="100">
+        </form>
+        <a href="{% url 'questions:ask' %}" class="btn btn-primary fw-bold px-4 mb-2 mb-lg-0">ASK!</a>
+        {% if mock_user %}
+          <div class="userblock d-flex align-items-center gap-2">
+            <img src="{% static mock_user.avatar %}" alt="{{ mock_user.nickname }} avatar" width="40" height="40" class="rounded">
+            <div class="lh-sm">
+              <div class="fw-semibold">{{ mock_user.nickname }}</div>
+              <a href="{% url 'core:profile' %}" class="small me-2">settings</a>
+              <a href="{% url 'core:login' %}" class="small">log out</a>
+            </div>
+          </div>
+        {% else %}
+          <div class="userblock d-flex align-items-center gap-3">
+            <a href="{% url 'core:login' %}">log in</a>
+            <a href="{% url 'core:signup' %}">register</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+</header>

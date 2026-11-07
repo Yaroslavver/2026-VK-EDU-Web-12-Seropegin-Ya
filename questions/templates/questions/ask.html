@@ -1,0 +1,42 @@
+{% extends "questions/layout.html" %}
+
+{% block title %}New question{% endblock %}
+
+{% block content %}
+      <h1 class="h3 mb-3">New Question</h1>
+      <div class="form-narrow">
+        <form action="{% url 'questions:ask' %}" method="post" novalidate>
+          {% csrf_token %}
+          <div class="row mb-3">
+            <label for="ask-title" class="col-sm-2 col-form-label">Title</label>
+            <div class="col-sm-10">
+              <input type="text" id="ask-title" name="title" class="form-control" maxlength="120" required
+                     value="Как сделать бесконечную прокрутку в RecyclerView?" aria-describedby="titleHelp">
+              <div id="titleHelp" class="form-text">Не более 120 символов.</div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="ask-text" class="col-sm-2 col-form-label">Text</label>
+            <div class="col-sm-10">
+              <textarea id="ask-text" name="text" class="form-control" rows="9" maxlength="5000" required
+                        >Хочу подгружать новые элементы списка, когда пользователь долистал до конца.
+Пробовала OnScrollListener, но события приходят по много раз.</textarea>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="ask-tags" class="col-sm-2 col-form-label">Tags</label>
+            <div class="col-sm-10">
+              <input type="text" id="ask-tags" name="tags" class="form-control is-invalid" maxlength="100"
+                     value="android, kotlin, recyclerview, ui" aria-describedby="tagsHelp tagsError">
+              <div id="tagsError" class="invalid-feedback">Можно указать не более 3 тегов.</div>
+              <div id="tagsHelp" class="form-text">Перечислите теги через запятую.</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-10 offset-sm-2">
+              <button type="submit" class="btn btn-primary fw-bold px-4">ASK!</button>
+            </div>
+          </div>
+        </form>
+      </div>
+{% endblock %}
