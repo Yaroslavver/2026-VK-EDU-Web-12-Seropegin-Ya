@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Settings — DevHelp</title>
+  <link rel="icon" href="static/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="static/img/favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="static/img/apple-touch-icon.png">
+  <link rel="stylesheet" href="static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+<header class="site-header" data-bs-theme="dark">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand logo" href="index.html"><span class="logo-mark">&lt;/&gt;</span>Dev<span class="logo-accent">Help</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+              aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse gap-3" id="mainNav">
+        <form class="d-flex flex-grow-1 my-2 my-lg-0 search-form" role="search" action="index.html">
+          <input class="form-control" type="search" name="q" placeholder="Search" aria-label="Search" maxlength="100">
+        </form>
+        <a href="ask.html" class="btn btn-primary fw-bold px-4 mb-2 mb-lg-0">ASK!</a>
+      <div class="userblock d-flex align-items-center gap-2">
+        <img src="static/img/avatar-me.svg" alt="Byte Master avatar" width="40" height="40" class="rounded">
+        <div class="lh-sm">
+          <div class="fw-semibold">Byte Master</div>
+          <a href="profile.html" class="small me-2">settings</a>
+          <a href="login.html" class="small">log out</a>
+        </div>
+      </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<main class="container flex-grow-1 py-4">
+  <div class="row g-4">
+    <div class="col-lg-8 col-xl-9">
+      <h1 class="h3 mb-3">Settings: Byte Master</h1>
+      <div class="form-narrow">
+        <div class="alert alert-danger" role="alert">
+          Настройки не сохранены: исправьте ошибки в форме.
+        </div>
+        <form action="profile.html" method="post" enctype="multipart/form-data" novalidate>
+          <div class="row mb-3">
+            <label for="pr-login" class="col-sm-3 col-form-label">Login</label>
+            <div class="col-sm-9">
+              <input type="text" id="pr-login" name="login" class="form-control" value="byte_master" readonly>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="pr-email" class="col-sm-3 col-form-label">Email</label>
+            <div class="col-sm-9">
+              <input type="email" id="pr-email" name="email" class="form-control is-invalid" maxlength="254" required value="byte.master@mail.ru">
+              <div class="invalid-feedback">Этот email уже используется другим аккаунтом.</div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="pr-nick" class="col-sm-3 col-form-label">Nickname</label>
+            <div class="col-sm-9">
+              <input type="text" id="pr-nick" name="nickname" class="form-control" maxlength="40" required value="Byte Master">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <span class="col-sm-3 col-form-label">Avatar</span>
+            <div class="col-sm-9">
+              <div class="d-flex flex-wrap align-items-center gap-3">
+                <img src="static/img/avatar-me.svg" alt="Current avatar" class="avatar-xl rounded border">
+                <div class="flex-grow-1 avatar-upload">
+                  <label for="pr-avatar" class="form-label small mb-1">Upload new avatar</label>
+                  <input type="file" id="pr-avatar" name="avatar" class="form-control" accept="image/png, image/jpeg" aria-describedby="prAvatarHelp">
+                  <div id="prAvatarHelp" class="form-text">JPG или PNG, до 2 МБ.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-9 offset-sm-3">
+              <button type="submit" class="btn btn-primary px-4">Save</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <aside class="col-lg-4 col-xl-3">
+      <section class="mb-4">
+        <h2 class="h4">Popular Tags</h2>
+        <div class="tag-cloud">
+          <a href="tag.html" class="tag-l tag-hot">python</a>
+          <a href="tag.html" class="tag-m">c++</a>
+          <a href="tag.html" class="tag-s">linux</a>
+          <a href="tag.html" class="tag-l tag-hot">javascript</a>
+          <a href="tag.html" class="tag-m">css</a>
+          <a href="tag.html" class="tag-s">unity</a>
+          <a href="tag.html" class="tag-m">arduino</a>
+          <a href="tag.html" class="tag-s">pandas</a>
+          <a href="tag.html" class="tag-m">android</a>
+          <a href="tag.html" class="tag-s">sql</a>
+          <a href="tag.html" class="tag-s">regex</a>
+        </div>
+      </section>
+      <section class="mb-4">
+        <h2 class="h4">Best Members</h2>
+        <ul class="list-unstyled best-members">
+          <li><a href="#">null_pointer</a></li>
+          <li><a href="#">Pythonista</a></li>
+          <li><a href="#">git_push_force</a></li>
+          <li><a href="#">CSS Wizard</a></li>
+          <li><a href="#">Mira Dev</a></li>
+        </ul>
+      </section>
+    </aside>
+  </div>
+</main>
+<footer class="site-footer mt-auto py-3">
+  <div class="container small">DevHelp — вопросы и ответы для разработчиков</div>
+</footer>
+<script src="static/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
