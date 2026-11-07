@@ -1,0 +1,53 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-3">Settings: {{ mock_user.nickname }}</h1>
+<div class="form-narrow">
+  <div class="alert alert-danger" role="alert">
+    Настройки не сохранены: исправьте ошибки в форме.
+  </div>
+  <form action="{% url 'core:profile' %}" method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    <div class="row mb-3">
+      <label for="pr-login" class="col-sm-3 col-form-label">Login</label>
+      <div class="col-sm-9">
+        <input type="text" id="pr-login" name="login" class="form-control" value="byte_master" readonly>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="pr-email" class="col-sm-3 col-form-label">Email</label>
+      <div class="col-sm-9">
+        <input type="email" id="pr-email" name="email" class="form-control is-invalid" maxlength="254" required value="byte.master@mail.ru">
+        <div class="invalid-feedback">Этот email уже используется другим аккаунтом.</div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="pr-nick" class="col-sm-3 col-form-label">Nickname</label>
+      <div class="col-sm-9">
+        <input type="text" id="pr-nick" name="nickname" class="form-control" maxlength="40" required value="Byte Master">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <span class="col-sm-3 col-form-label">Avatar</span>
+      <div class="col-sm-9">
+        <div class="d-flex flex-wrap align-items-center gap-3">
+          <img src="{% static mock_user.avatar %}" alt="Current avatar" class="avatar-xl rounded border">
+          <div class="flex-grow-1 avatar-upload">
+            <label for="pr-avatar" class="form-label small mb-1">Upload new avatar</label>
+            <input type="file" id="pr-avatar" name="avatar" class="form-control" accept="image/png, image/jpeg" aria-describedby="prAvatarHelp">
+            <div id="prAvatarHelp" class="form-text">JPG или PNG, до 2 МБ.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-9 offset-sm-3">
+        <button type="submit" class="btn btn-primary px-4">Save</button>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

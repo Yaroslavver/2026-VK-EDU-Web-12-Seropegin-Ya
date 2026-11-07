@@ -1,0 +1,11 @@
+{% extends "questions/layout.html" %}
+
+{% block title %}New questions{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-wrap align-items-baseline gap-3 mb-3">
+  <h1 class="h3 mb-0">New Questions</h1>
+  <a href="{% url 'questions:hot' %}">Hot Questions</a>
+</div>
+{% include "questions/includes/question_list.html" %}
+{% endblock %}

@@ -1,0 +1,31 @@
+{% comment %}
+  Пагинатор. Ожидает в контексте page — результат функции paginate().
+  Необязательный параметр anchor добавляется к ссылкам, например "#answers".
+{% endcomment %}
+{% if page.paginator.num_pages > 1 %}
+  <nav aria-label="Pages">
+    <ul class="pagination flex-wrap mt-4">
+      {% if page.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ page.previous_page_number }}{{ anchor }}" aria-label="Previous">&laquo;</a></li>
+      {% else %}
+        <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+      {% endif %}
+
+      {% for number in page.elided_range %}
+        {% if number == page.paginator.ELLIPSIS %}
+          <li class="page-item disabled"><span class="page-link">&hellip;</span></li>
+        {% elif number == page.number %}
+          <li class="page-item active" aria-current="page"><span class="page-link">{{ number }}</span></li>
+        {% else %}
+          <li class="page-item"><a class="page-link" href="?page={{ number }}{{ anchor }}">{{ number }}</a></li>
+        {% endif %}
+      {% endfor %}
+
+      {% if page.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ page.next_page_number }}{{ anchor }}" aria-label="Next">&raquo;</a></li>
+      {% else %}
+        <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+      {% endif %}
+    </ul>
+  </nav>
+{% endif %}

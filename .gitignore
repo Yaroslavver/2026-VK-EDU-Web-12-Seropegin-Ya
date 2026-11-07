@@ -12,16 +12,19 @@ desktop.ini
 # Python
 __pycache__/
 *.py[cod]
+
+# Virtual environment
 venv/
 .venv/
 
 # Django
-*.sqlite3
 db.sqlite3
-media/
+*.sqlite3
+/media/
+# только корневая папка для collectstatic; статика приложений (core/static, questions/static) коммитится
 /static/
 
-# Environment
+# Environment variables (пример лежит в .env.example)
 .env
 
 # Logs

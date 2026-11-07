@@ -1,0 +1,65 @@
+{% extends "core/base.html" %}
+
+{% block title %}Registration{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-3">Registration</h1>
+<div class="form-narrow">
+  <div class="alert alert-danger" role="alert">
+    Пользователь с таким email уже зарегистрирован.
+  </div>
+  <form action="{% url 'core:signup' %}" method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    <div class="row mb-3">
+      <label for="su-login" class="col-sm-3 col-form-label">Login</label>
+      <div class="col-sm-9">
+        <input type="text" id="su-login" name="login" class="form-control" maxlength="30" required
+               value="byte_master" autocomplete="username">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="su-email" class="col-sm-3 col-form-label">Email</label>
+      <div class="col-sm-9">
+        <input type="email" id="su-email" name="email" class="form-control is-invalid" maxlength="254" required
+               value="byte.master@mail" autocomplete="email">
+        <div class="invalid-feedback">Введите корректный email, например name@example.com</div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="su-nick" class="col-sm-3 col-form-label">Nickname</label>
+      <div class="col-sm-9">
+        <input type="text" id="su-nick" name="nickname" class="form-control" maxlength="40" required
+               value="Byte Master">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="su-pass" class="col-sm-3 col-form-label">Password</label>
+      <div class="col-sm-9">
+        <input type="password" id="su-pass" name="password" class="form-control" minlength="8" maxlength="128" required
+               value="secret12" aria-describedby="suPassHelp" autocomplete="new-password">
+        <div id="suPassHelp" class="form-text">Минимум 8 символов, не только цифры.</div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="su-pass2" class="col-sm-3 col-form-label">Repeat password</label>
+      <div class="col-sm-9">
+        <input type="password" id="su-pass2" name="password_repeat" class="form-control" maxlength="128" required
+               value="secret12" autocomplete="new-password">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="su-avatar" class="col-sm-3 col-form-label">Avatar</label>
+      <div class="col-sm-9">
+        <input type="file" id="su-avatar" name="avatar" class="form-control" accept="image/png, image/jpeg" aria-describedby="suAvatarHelp">
+        <div id="suAvatarHelp" class="form-text">JPG или PNG, до 2 МБ.</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-9 offset-sm-3">
+        <button type="submit" class="btn btn-primary px-4">Register!</button>
+        <p class="mt-3 mb-0 small">Уже есть аккаунт? <a href="{% url 'core:login' %}">Log in</a></p>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

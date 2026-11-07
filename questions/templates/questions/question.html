@@ -1,0 +1,39 @@
+{% extends "questions/layout.html" %}
+{% load static %}
+
+{% block title %}{{ question.title }}{% endblock %}
+
+{% block content %}
+<article class="question-full mb-4">
+  <div class="d-flex gap-3">
+    <div class="card-side">
+      <img src="{% static question.avatar %}" alt="{{ question.author }} avatar" class="avatar avatar-lg rounded">
+      {% include "questions/includes/vote.html" with rating=question.rating state=question.vote %}
+    </div>
+    <div class="flex-grow-1 min-w-0">
+      <h1 class="h3">{{ question.title }}</h1>
+      <p>{{ question.text }}</p>
+      <div class="d-flex flex-wrap align-items-center gap-2 small">
+        <span class="text-body-secondary">Tags:</span> {% include "questions/includes/tags.html" with tags=question.tags %}
+        <span class="text-body-secondary ms-auto"><time>{{ question.created }}</time> · <a href="#">{{ question.author }}</a></span>
+      </div>
+    </div>
+  </div>
+</article>
+<hr>
+<h2 class="h5 mb-3" id="answers">Answers ({{ question.answers_count }})</h2>
+{% for answer in page.object_list %}
+  {% include "questions/includes/answer_card.html" %}
+{% empty %}
+  <p class="text-body-secondary">Ответов пока нет — станьте первым.</p>
+{% endfor %}
+{% include "core/includes/pagination.html" with anchor="#answers" %}
+<hr>
+<form class="answer-form" action="{% url 'questions:question' question_id=question.id %}" method="post">
+  {% csrf_token %}
+  <label for="answer-text" class="form-label fw-semibold">Your answer</label>
+  <textarea id="answer-text" name="text" class="form-control" rows="5" maxlength="5000"
+            placeholder="Напишите ваш ответ..." required></textarea>
+  <button type="submit" class="btn btn-primary mt-3">Answer</button>
+</form>
+{% endblock %}
