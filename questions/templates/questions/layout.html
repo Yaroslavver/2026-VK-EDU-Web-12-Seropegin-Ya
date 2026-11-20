@@ -1,0 +1,7 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% comment %}Общий шаблон страниц приложения questions: добавляет стили карточек и лайков.{% endcomment %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'questions/css/questions.css' %}">
+{% endblock %}

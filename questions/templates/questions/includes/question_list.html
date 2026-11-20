@@ -1,0 +1,7 @@
+{% comment %}Список вопросов текущей страницы + пагинатор. Ожидает page.{% endcomment %}
+{% for question in page.object_list %}
+  {% include "questions/includes/question_card.html" %}
+{% empty %}
+  <div class="p-4 border rounded bg-body-tertiary text-body-secondary">Здесь пока нет вопросов.</div>
+{% endfor %}
+{% include "core/includes/pagination.html" %}

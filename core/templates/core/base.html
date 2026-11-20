@@ -1,0 +1,28 @@
+{% load static %}<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Questions and answers{% endblock %} — DevHelp</title>
+  <link rel="icon" href="{% static 'core/img/favicon.svg' %}" type="image/svg+xml">
+  <link rel="icon" href="{% static 'core/img/favicon.ico' %}" sizes="32x32">
+  <link rel="apple-touch-icon" href="{% static 'core/img/apple-touch-icon.png' %}">
+  <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body class="d-flex flex-column min-vh-100">
+{% include "core/includes/header.html" %}
+<main class="container flex-grow-1 py-4">
+  <div class="row g-4">
+    <div class="col-lg-8 col-xl-9">
+      {% block content %}{% endblock %}
+    </div>
+    {% include "core/includes/sidebar.html" %}
+  </div>
+</main>
+{% include "core/includes/footer.html" %}
+<script src="{% static 'core/js/bootstrap.bundle.min.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

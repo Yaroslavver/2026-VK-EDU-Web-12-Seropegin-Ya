@@ -1,0 +1,6 @@
+{% comment %}Виджет лайков. Параметры: rating — счётчик, state — up / down / none.{% endcomment %}
+<div class="vote" data-state="{{ state|default:'none' }}">
+  <button type="button" class="btn vote-btn vote-up{% if state == 'up' %} active{% endif %}" aria-label="Like" aria-pressed="{% if state == 'up' %}true{% else %}false{% endif %}">&#9650;</button>
+  <span class="vote-count">{{ rating }}</span>
+  <button type="button" class="btn vote-btn vote-down{% if state == 'down' %} active{% endif %}" aria-label="Dislike" aria-pressed="{% if state == 'down' %}true{% else %}false{% endif %}">&#9660;</button>
+</div>
