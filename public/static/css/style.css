@@ -101,6 +101,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 { color: var(--dh-ink); }
 
 .question-title { text-decoration: none; }
 .question-title:hover { text-decoration: underline; }
+.question-title,.question-full h1 {  overflow-wrap: anywhere; }
 
 .text-clamp-2 {                       /* краткое описание — максимум 2 строки */
   display: -webkit-box;
