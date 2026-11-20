@@ -12,11 +12,11 @@
           <input class="form-control" type="search" name="q" placeholder="Search" aria-label="Search" maxlength="100">
         </form>
         <a href="{% url 'questions:ask' %}" class="btn btn-primary fw-bold px-4 mb-2 mb-lg-0">ASK!</a>
-        {% if mock_user %}
+        {% if user.is_authenticated %}
           <div class="userblock d-flex align-items-center gap-2">
-            <img src="{% static mock_user.avatar %}" alt="{{ mock_user.nickname }} avatar" width="40" height="40" class="rounded">
+            <img src="{% static 'core/img/avatar-me.svg' %}" alt="" width="40" height="40" class="rounded">
             <div class="lh-sm">
-              <div class="fw-semibold">{{ mock_user.nickname }}</div>
+              <div class="fw-semibold">{{ user.username }}</div>
               <a href="{% url 'core:profile' %}" class="small me-2">settings</a>
               <a href="{% url 'core:login' %}" class="small">log out</a>
             </div>

@@ -1,7 +1,6 @@
 from django.http import Http404
 from django.shortcuts import render
 
-from core.mock_data import MOCK_USER
 from core.utils import paginate
 
 from . import mock_data
@@ -31,4 +30,4 @@ def question(request, question_id):
 
 
 def ask(request):
-    return render(request, 'questions/ask.html', {'mock_user': MOCK_USER})
+    return render(request, 'questions/ask.html')
