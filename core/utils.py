@@ -1,7 +1,7 @@
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 
-def paginate(objects_list, request, per_page=10):
+def paginate(objects_list, request, per_page=20):
     """Возвращает нужную страницу списка (или QuerySet) по параметру ?page=.
 
     Некорректные значения заменяются на значения по умолчанию:

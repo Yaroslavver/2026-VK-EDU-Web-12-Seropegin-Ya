@@ -1,9 +1,7 @@
-from .mock_data import BEST_MEMBERS, POPULAR_TAGS
+from django.utils.functional import SimpleLazyObject
+
+from .sidebar import get_sidebar
 
 
 def sidebar(request):
-    """Данные правой колонки нужны на каждой странице — передаём их во все шаблоны сразу."""
-    return {
-        'popular_tags': POPULAR_TAGS,
-        'best_members': BEST_MEMBERS,
-    }
+    return {'sidebar': SimpleLazyObject(get_sidebar)}
