@@ -10,20 +10,25 @@
         <form class="d-flex flex-grow-1 my-2 my-lg-0 search-form" role="search" action="{% url 'questions:index' %}" method="get">
           <input class="form-control" type="search" name="q" placeholder="Search" aria-label="Search" maxlength="100">
         </form>
-        <a href="{% url 'questions:ask' %}" class="btn btn-primary fw-bold px-4 mb-2 mb-lg-0">ASK!</a>
         {% if user.is_authenticated %}
+          <a href="{% url 'questions:ask' %}" class="btn btn-primary fw-bold px-4 mb-2 mb-lg-0">ASK!</a>
           <div class="userblock d-flex align-items-center gap-2">
             {% include "core/includes/avatar.html" with account=user avatar_classes="rounded object-fit-cover" size=40 only %}
             <div class="lh-sm">
               <div class="fw-semibold">{{ user.profile.nickname|default:user.username }}</div>
-              <a href="{% url 'core:profile' %}" class="small me-2">settings</a>
-              <a href="{% url 'core:login' %}" class="small">log out</a>
+              <a href="{% url 'core:profile' %}" class="small me-2">Настройки</a>
+              {% include "core/includes/logout.html" with button_class="btn btn-link border-0 p-0 small header-logout" %}
             </div>
           </div>
         {% else %}
+          <span class="d-inline-block" title="Войдите, чтобы задать вопрос">
+            <button type="button" class="btn btn-primary fw-bold px-4 mb-2 mb-lg-0" disabled>ASK!</button>
+          </span>
+          {% url 'core:login' as login_url %}
+          {% url 'core:signup' as signup_url %}
           <div class="userblock d-flex align-items-center gap-3">
-            <a href="{% url 'core:login' %}">log in</a>
-            <a href="{% url 'core:signup' %}">register</a>
+            <a href="{{ login_url }}{% if request.path != login_url and request.path != signup_url %}?next={{ request.get_full_path|urlencode:"" }}{% endif %}">Войти</a>
+            <a href="{{ signup_url }}">Регистрация</a>
           </div>
         {% endif %}
       </div>

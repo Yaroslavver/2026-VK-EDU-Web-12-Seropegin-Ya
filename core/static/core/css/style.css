@@ -52,6 +52,7 @@
 .site-header .form-control::placeholder { color: #9aa4ae; }
 .site-header .userblock { color: #e6edf3; }
 .site-header .userblock a { color: #ffa94d; }
+.site-header .userblock .header-logout { color: #ffa94d; font-size: .875em; }
 .site-header .userblock a:hover { color: #ffc078; }
 
 .logo-mark {
@@ -103,6 +104,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 { color: var(--dh-ink); }
 
 /* ---------- формы ---------- */
 .form-narrow { max-width: 640px; }
+.form-control[aria-invalid="true"] { border-color: var(--bs-form-invalid-border-color); }
 .form-small  { max-width: 480px; }
 .avatar-upload { min-width: 200px; }
 

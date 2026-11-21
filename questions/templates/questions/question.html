@@ -6,11 +6,12 @@
   <div class="d-flex gap-3">
     <div class="card-side">
       {% include "core/includes/avatar.html" with account=question.author avatar_classes="avatar avatar-lg rounded" only %}
-      {% include "questions/includes/vote.html" with rating=question.rating %}
+      {% url 'questions:question_vote' question.pk as vote_url %}
+      {% include "questions/includes/vote.html" with item=question %}
     </div>
     <div class="flex-grow-1 min-w-0">
       <h1 class="h3">{{ question.title }}</h1>
-      <p>{{ question.text }}</p>
+      <p>{{ question.text|linebreaksbr }}</p>
       <div class="d-flex flex-wrap align-items-center gap-2 small">
         {% include "questions/includes/tags.html" with tags=question.tags.all only %}
         <span class="text-body-secondary ms-auto">
@@ -26,15 +27,17 @@
 {% for answer in page.object_list %}
   {% include "questions/includes/answer_card.html" %}
 {% empty %}
-  <p class="text-body-secondary">Ответов пока нет — станьте первым.</p>
+  <p class="text-body-secondary">Ответов пока нет.</p>
 {% endfor %}
 {% include "core/includes/pagination.html" with anchor="#answers" %}
 <hr>
-<form class="answer-form" action="{{ question.get_absolute_url }}" method="post">
-  {% csrf_token %}
-  <label for="answer-text" class="form-label fw-semibold">Your answer</label>
-  <textarea id="answer-text" name="text" class="form-control" rows="5" maxlength="5000"
-            placeholder="Напишите ваш ответ..." required></textarea>
-  <button type="submit" class="btn btn-primary mt-3">Answer</button>
-</form>
+{% if user.is_authenticated %}
+  <form id="answer-form" class="answer-form" action="{{ request.get_full_path }}#answer-form" method="post" novalidate>
+    {% csrf_token %}
+    {% include "core/includes/form_fields.html" %}
+    <button type="submit" class="btn btn-primary">Опубликовать ответ</button>
+  </form>
+{% else %}
+  <p><a href="{% url 'core:login' %}?next={{ request.get_full_path|urlencode:"" }}">Войдите</a>, чтобы ответить.</p>
+{% endif %}
 {% endblock %}

@@ -1,35 +1,20 @@
 {% extends "core/base.html" %}
 
-{% block title %}Log in{% endblock %}
+{% block title %}Вход{% endblock %}
 
 {% block content %}
-<h1 class="h3 mb-3">Log In</h1>
-<div class="form-narrow form-small">
-  <div class="alert alert-danger" role="alert">
-    Неверный логин или пароль.
+<h1 class="h3 mb-3">Вход</h1>
+{% if user.is_authenticated %}
+  {% include "core/includes/logout.html" with button_class="btn btn-primary" %}
+{% else %}
+  <div class="form-narrow">
+    <form action="{% url 'core:login' %}" method="post" novalidate>
+      {% csrf_token %}
+      {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+      {% include "core/includes/form_fields.html" %}
+      <button type="submit" class="btn btn-primary px-4">Войти</button>
+      <p class="mt-3 mb-0 small">Ещё нет аккаунта? <a href="{% url 'core:signup' %}">Зарегистрироваться</a></p>
+    </form>
   </div>
-  <form action="{% url 'core:login' %}" method="post" novalidate>
-    {% csrf_token %}
-    <div class="row mb-3">
-      <label for="login-login" class="col-sm-3 col-form-label">Login</label>
-      <div class="col-sm-9">
-        <input type="text" id="login-login" name="login" class="form-control" maxlength="30" required
-               placeholder="Ваш логин" autocomplete="username" value="byte_master">
-      </div>
-    </div>
-    <div class="row mb-3">
-      <label for="login-password" class="col-sm-3 col-form-label">Password</label>
-      <div class="col-sm-9">
-        <input type="password" id="login-password" name="password" class="form-control" maxlength="128" required
-               autocomplete="current-password" value="12345678">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-9 offset-sm-3">
-        <button type="submit" class="btn btn-primary px-4">Log in!</button>
-        <p class="mt-3 mb-0 small">Ещё нет аккаунта? <a href="{% url 'core:signup' %}">Create new account</a></p>
-      </div>
-    </div>
-  </form>
-</div>
+{% endif %}
 {% endblock %}

@@ -114,6 +114,11 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
+LOGIN_URL = 'core:login'
+LOGIN_REDIRECT_URL = 'questions:index'
+LOGOUT_REDIRECT_URL = 'questions:index'
+CSRF_FAILURE_VIEW = 'core.views.csrf_failure'
+
 
 LANGUAGE_CODE = 'ru-ru'
 

@@ -2,7 +2,8 @@
   <div class="card-body d-flex gap-3">
     <div class="card-side">
       {% include "core/includes/avatar.html" with account=question.author avatar_classes="avatar rounded" only %}
-      {% include "questions/includes/vote.html" with rating=question.rating %}
+      {% url 'questions:question_vote' question.pk as vote_url %}
+      {% include "questions/includes/vote.html" with item=question %}
     </div>
     <div class="flex-grow-1 min-w-0">
       <h2 class="h5 mb-1"><a href="{{ question.get_absolute_url }}" class="question-title">{{ question.title }}</a></h2>
