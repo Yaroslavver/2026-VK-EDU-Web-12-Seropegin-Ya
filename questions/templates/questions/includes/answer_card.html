@@ -1,17 +1,23 @@
-<article class="card answer-card mb-3{% if answer.is_correct %} answer-correct{% endif %}">
+<article id="answer-{{ answer.pk }}" data-answer-id="{{ answer.pk }}"
+         class="card answer-card mb-3{% if answer.is_correct %} answer-correct{% endif %}">
   <div class="card-body d-flex gap-3">
     <div class="card-side">
       {% include "core/includes/avatar.html" with account=answer.author avatar_classes="avatar rounded" only %}
-      {% include "questions/includes/vote.html" with rating=answer.rating %}
+      {% url 'questions:answer_vote' answer.pk as vote_url %}
+      {% include "questions/includes/vote.html" with item=answer %}
     </div>
     <div class="flex-grow-1 min-w-0">
-      <p class="mb-2">{{ answer.text }}</p>
+      <p class="mb-2">{{ answer.text|linebreaksbr }}</p>
       <div class="d-flex flex-wrap align-items-center gap-2 small">
-        <div class="form-check mb-0">
-          <input class="form-check-input" type="checkbox" id="correct-{{ answer.id }}"{% if answer.is_correct %} checked{% endif %}>
-          <label class="form-check-label" for="correct-{{ answer.id }}">Correct!</label>
-        </div>
-        {% if answer.is_correct %}<span class="badge text-bg-success">Correct answer</span>{% endif %}
+        {% if user.is_authenticated and user.pk == question.author_id %}
+          <form class="form-check mb-0" action="{% url 'questions:correct_answer' question.pk %}" method="post" data-correct-form>
+            {% csrf_token %}
+            <input type="hidden" name="answer_id" value="{{ answer.pk }}">
+            <input class="form-check-input" type="checkbox" id="correct-{{ answer.pk }}"{% if answer.is_correct %} checked{% endif %}>
+            <label class="form-check-label" for="correct-{{ answer.pk }}">Правильный ответ</label>
+          </form>
+        {% endif %}
+        <span class="badge text-bg-success" data-correct-badge{% if not answer.is_correct %} hidden{% endif %}>Правильный ответ</span>
         <span class="text-body-secondary ms-auto">
           {{ answer.author.profile.nickname|default:answer.author.username }}
           · <time datetime="{{ answer.created|date:'c' }}">{{ answer.created|date:'j E Y, H:i' }}</time>

@@ -1,10 +1,12 @@
 from django.conf import settings
 from django.core.validators import RegexValidator
 from django.db import models
-from django.db.models import Count, Max, OuterRef, Subquery, Sum
+from django.db.models import Count, F, FilteredRelation, Max, OuterRef, Q, Subquery, Sum
 from django.db.models.functions import Coalesce
 from django.urls import reverse
 from django.utils import timezone
+
+ANSWERS_PER_PAGE = 30
 
 
 class TagQuerySet(models.QuerySet):
@@ -25,6 +27,14 @@ def related_total(queryset, field, aggregate):
 
 
 class RatedQuerySet(models.QuerySet):
+    def with_user_vote(self, user):
+        if not user.is_authenticated:
+            return self
+        return self.annotate(
+            viewer_vote=FilteredRelation('votes', condition=Q(votes__user_id=user.pk)),
+            user_vote=F('viewer_vote__value'),
+        )
+
     def top_authors(self, since, limit):
         return (
             self.filter(created__gte=since).with_rating().order_by()
@@ -65,6 +75,16 @@ class AnswerQuerySet(RatedQuerySet):
             self.filter(question=question).with_rating().select_related('author__profile')
             .order_by('-rating', '-created', '-pk')
         )
+
+    def page_for(self, answer):
+        ranked = self.filter(question_id=answer.question_id).with_rating()
+        rating = ranked.values_list('rating', flat=True).get(pk=answer.pk)
+        preceding = ranked.filter(
+            Q(rating__gt=rating)
+            | Q(rating=rating, created__gt=answer.created)
+            | Q(rating=rating, created=answer.created, pk__gt=answer.pk),
+        ).count()
+        return preceding // ANSWERS_PER_PAGE + 1
 
 
 class Tag(models.Model):
@@ -129,6 +149,10 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.text[:80]
+
+    def get_absolute_url(self):
+        page = Answer.objects.page_for(self)
+        return f'{self.question.get_absolute_url()}?page={page}#answer-{self.pk}'
 
 
 class VoteValue(models.IntegerChoices):
