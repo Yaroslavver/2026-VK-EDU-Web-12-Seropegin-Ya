@@ -12,6 +12,7 @@
 
 .question-title { text-decoration: none; }
 .question-title:hover { text-decoration: underline; }
+.question-title, .question-full h1 { overflow-wrap: anywhere; }
 
 .text-clamp-2 {                       /* краткое описание — максимум 2 строки */
   display: -webkit-box;

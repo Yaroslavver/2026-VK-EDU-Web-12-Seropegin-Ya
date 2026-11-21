@@ -1,4 +1,3 @@
-{% load static %}
 <header class="site-header" data-bs-theme="dark">
   <nav class="navbar navbar-expand-lg">
     <div class="container">
@@ -14,9 +13,9 @@
         <a href="{% url 'questions:ask' %}" class="btn btn-primary fw-bold px-4 mb-2 mb-lg-0">ASK!</a>
         {% if user.is_authenticated %}
           <div class="userblock d-flex align-items-center gap-2">
-            <img src="{% static 'core/img/avatar-me.svg' %}" alt="" width="40" height="40" class="rounded">
+            {% include "core/includes/avatar.html" with account=user avatar_classes="rounded object-fit-cover" size=40 only %}
             <div class="lh-sm">
-              <div class="fw-semibold">{{ user.username }}</div>
+              <div class="fw-semibold">{{ user.profile.nickname|default:user.username }}</div>
               <a href="{% url 'core:profile' %}" class="small me-2">settings</a>
               <a href="{% url 'core:login' %}" class="small">log out</a>
             </div>

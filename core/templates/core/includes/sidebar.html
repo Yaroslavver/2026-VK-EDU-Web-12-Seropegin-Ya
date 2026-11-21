@@ -1,17 +1,21 @@
 <aside class="col-lg-4 col-xl-3">
   <section class="mb-4">
     <h2 class="h4">Popular Tags</h2>
-    <div class="tag-cloud">
-      {% for tag in popular_tags %}
-        <a href="{% url 'questions:tag' tag_name=tag.name %}" class="tag-{{ tag.size }}{% if tag.hot %} tag-hot{% endif %}">{{ tag.name }}</a>
+    <ul class="tag-cloud list-unstyled mb-0">
+      {% for tag_name in sidebar.popular_tags %}
+        <li><a href="{% url 'questions:tag' tag_name=tag_name %}"{% if forloop.counter <= 3 %} class="tag-l tag-hot"{% endif %}>{{ tag_name }}</a></li>
+      {% empty %}
+        <li class="text-body-secondary">Популярных тегов пока нет.</li>
       {% endfor %}
-    </div>
+    </ul>
   </section>
   <section class="mb-4">
     <h2 class="h4">Best Members</h2>
     <ul class="list-unstyled best-members">
-      {% for member in best_members %}
-        <li><a href="#">{{ member }}</a></li>
+      {% for member in sidebar.best_members %}
+        <li>{{ member }}</li>
+      {% empty %}
+        <li class="text-body-secondary">Пока нет активных участников.</li>
       {% endfor %}
     </ul>
   </section>

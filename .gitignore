@@ -26,6 +26,8 @@ db.sqlite3
 
 # Environment variables (пример лежит в .env.example)
 .env
+.env.*
+!.env.example
 
 # Logs
 *.log

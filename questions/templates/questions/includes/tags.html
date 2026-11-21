@@ -1,1 +1,8 @@
-{% for tag in tags %}<a href="{% url 'questions:tag' tag_name=tag %}" class="badge rounded-pill text-bg-light border tag-badge">{{ tag }}</a> {% endfor %}
+{% if tags %}
+  <span class="text-body-secondary">Tags:</span>
+  <ul class="list-unstyled d-flex flex-wrap gap-2 mb-0">
+    {% for tag in tags %}
+      <li><a href="{% url 'questions:tag' tag_name=tag.name %}" class="badge rounded-pill text-bg-light border tag-badge">{{ tag.name }}</a></li>
+    {% endfor %}
+  </ul>
+{% endif %}
